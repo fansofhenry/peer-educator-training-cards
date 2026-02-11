@@ -10,6 +10,8 @@ function startGame(players) {
     document.getElementById("welcome-screen").classList.remove("active");
     document.getElementById("game-screen").classList.add("active");
     updateTurnDisplay();
+    initializeDecks();
+
 }
 
 // Create working deck copies
