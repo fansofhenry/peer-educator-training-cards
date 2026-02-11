@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peer Educator Training Cards - A Game for Deep Learning</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 Peer Educator Training Cards</h1>
+            <p class="tagline">"Give a person a fish, they eat for a day. Teach a person to fish and they eat for a lifetime."</p>
+        </header>
+
+        <div id="welcome-screen" class="screen active">
+            <div class="welcome-content">
+                <h2>Welcome to the Training Circle</h2>
+                <p>This game helps peer educators practice the art of coaching, mentorship, and tutoring through scenarios, reflection, and dialogue.</p>
+                
+                <div class="player-setup">
+                    <h3>How many people are playing?</h3>
+                    <div class="player-buttons">
+                        <button onclick="startGame(2)" class="player-btn">2 Players</button>
+                        <button onclick="startGame(3)" class="player-btn">3 Players</button>
+                        <button onclick="startGame(4)" class="player-btn">4 Players</button>
+                    </div>
+                </div>
+
+                <div class="game-info">
+                    <h3>How to Play</h3>
+                    <ul>
+                        <li>🎯 Each round, draw a card from one of four decks</li>
+                        <li>💭 Engage with the scenario, principle, or question</li>
+                        <li>🗣️ Discuss with your fellow educators (2-5 minutes per card)</li>
+                        <li>✨ Reflect, learn, and grow together</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="game-screen" class="screen">
+            <div class="game-header">
+                <div class="round-info">
+                    <span id="round-counter">Round 1</span>
+                    <span id="player-turn">Player 1's Turn</span>
+                </div>
+                <button onclick="endGame()" class="btn-secondary">End Session</button>
+            </div>
+
+            <div class="deck-selection">
+                <h2>Choose Your Deck</h2>
+                <div class="decks">
+                    <div class="deck" onclick="drawCard('scenario')" data-deck="scenario">
+                        <div class="deck-icon">🎭</div>
+                        <h3>Real Scenarios</h3>
+                        <p>Navigate actual tutoring situations</p>
+                        <span class="deck-count" id="scenario-count">20 cards</span>
+                    </div>
+
+                    <div class="deck" onclick="drawCard('principle')" data-deck="principle">
+                        <div class="deck-icon">🧠</div>
+                        <h3>Learning Principles</h3>
+                        <p>Explore cognitive science & pedagogy</p>
+                        <span class="deck-count" id="principle-count">20 cards</span>
+                    </div>
+
+                    <div class="deck" onclick="drawCard('reflection')" data-deck="reflection">
+                        <div class="deck-icon">🪞</div>
+                        <h3>Deep Reflection</h3>
+                        <p>Questions for self-awareness</p>
+                        <span class="deck-count" id="reflection-count">20 cards</span>
+                    </div>
+
+                    <div class="deck" onclick="drawCard('wildcard')" data-deck="wildcard">
+                        <div class="deck-icon">⚡</div>
+                        <h3>Wild Cards</h3>
+                        <p>Unexpected challenges & humor</p>
+                        <span class="deck-count" id="wildcard-count">20 cards</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="card-display" class="card-display hidden">
+                <div class="card-container">
+                    <div class="card" id="current-card">
+                        <div class="card-header">
+                            <span class="card-type" id="card-type"></span>
+                            <span class="card-difficulty" id="card-difficulty"></span>
+                        </div>
+                        <div class="card-content">
+                            <h3 id="card-title"></h3>
+                            <div id="card-body"></div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="discussion-prompts" id="discussion-prompts"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-actions">
+                    <button onclick="startTimer()" class="btn-primary" id="timer-btn">
+                        ⏱️ Start 3-Min Discussion
+                    </button>
+                    <div class="timer-display hidden" id="timer-display">
+                        <span id="timer-text">3:00</span>
+                    </div>
+                    <button onclick="nextTurn()" class="btn-success" id="next-btn">
+                        Next Turn →
+                    </button>
+                </div>
+
+                <div class="reflection-notes">
+                    <h4>💭 Quick Notes (for this card)</h4>
+                    <textarea id="card-notes" placeholder="What insights emerged? What will you try differently?"></textarea>
+                    <button onclick="saveNote()" class="btn-secondary">Save Note</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="summary-screen" class="screen">
+            <div class="summary-content">
+                <h2>🎉 Session Complete!</h2>
+                <div class="session-stats" id="session-stats"></div>
+                
+                <div class="saved-notes" id="saved-notes">
+                    <h3>Your Reflections</h3>
+                </div>
+
+                <div class="action-buttons">
+                    <button onclick="downloadNotes()" class="btn-primary">📥 Download Notes</button>
+                    <button onclick="resetGame()" class="btn-secondary">🔄 New Session</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="cards-data.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
