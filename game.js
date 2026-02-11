@@ -12,9 +12,32 @@ function startGame(players) {
     updateTurnDisplay();
 }
 
+// Create working deck copies
+let activeDecks = {};
+
+function initializeDecks() {
+    activeDecks = {
+        scenario: [...cards.scenario],
+        principle: [...cards.principle],
+        reflection: [...cards.reflection],
+        wildcard: [...cards.wildcard]
+    };
+}
+
+initializeDecks();
+
 function drawCard(deckName) {
-    const deck = cards[deckName];
-    const card = deck[Math.floor(Math.random() * deck.length)];
+    const deck = activeDecks[deckName];
+
+    if (deck.length === 0) {
+        alert("No more cards in this deck!");
+        return;
+    }
+
+    const randomIndex = Math.floor(Math.random() * deck.length);
+    const card = deck.splice(randomIndex, 1)[0]; // removes card from deck
+
+    updateDeckCount(deckName);
 
     document.getElementById("card-type").innerText = deckName.toUpperCase();
     document.getElementById("card-title").innerText = card.title;
@@ -23,6 +46,7 @@ function drawCard(deckName) {
 
     const promptsContainer = document.getElementById("discussion-prompts");
     promptsContainer.innerHTML = "";
+
     card.prompts.forEach(prompt => {
         const p = document.createElement("p");
         p.innerText = "• " + prompt;
@@ -31,6 +55,11 @@ function drawCard(deckName) {
 
     document.getElementById("card-display").classList.remove("hidden");
 }
+function updateDeckCount(deckName) {
+    document.getElementById(`${deckName}-count`).innerText =
+        activeDecks[deckName].length + " cards remaining";
+}
+
 
 function nextTurn() {
     currentPlayer++;
